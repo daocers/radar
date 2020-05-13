@@ -15,7 +15,6 @@ import java.util.List;
  */
 public abstract class BaseService<T> {
 
-    @Autowired
     BaseDao<T> baseDao;
 
     /**
@@ -66,7 +65,7 @@ public abstract class BaseService<T> {
      * @param record
      * @return
      */
-    public List<T> findByObject(T record) {
+    public List<T> findByCondition(T record) {
         return baseDao.findByObject(record);
     }
 
