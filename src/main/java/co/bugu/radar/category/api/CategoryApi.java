@@ -1,16 +1,20 @@
 package co.bugu.radar.category.api;
 
 import co.bugu.common.RespDto;
+import co.bugu.common.enums.DelFlagEnum;
 import co.bugu.radar.category.domain.Category;
 import co.bugu.radar.category.dto.TreeNodeDto;
 import co.bugu.radar.category.service.CategoryService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,13 +57,27 @@ public class CategoryApi {
     @RequestMapping("/getTree")
     public RespDto<List<TreeNodeDto>> getTree() {
         List<TreeNodeDto> list = categoryService.getTree();
+        if (CollectionUtils.isEmpty(list)) {
+            list = new ArrayList<>();
+        }
         return RespDto.success(list);
     }
 
 
     @RequestMapping("/save")
-    public RespDto<Boolean> save(Category category) {
+    public RespDto<Boolean> save(@RequestBody Category category) {
         Preconditions.checkArgument(null != category);
+        category.setIsDel(DelFlagEnum.NO.getCode());
+
+        if (category.getSuperiorId() == null || category.getSuperiorId() < 1) {
+            category.setLevel(0);
+        }
+        Category superior = categoryService.selectById(category.getSuperiorId());
+        if (null == superior) {
+            category.setLevel(0);
+        } else {
+            category.setLevel(superior.getLevel() + 1);
+        }
         if (null == category.getId()) {
             categoryService.insert(category);
         } else {
@@ -67,5 +85,11 @@ public class CategoryApi {
             categoryService.updateById(category);
         }
         return RespDto.success(true);
+    }
+
+    @RequestMapping("/getFinalType")
+    public RespDto<List<Category>> getFinalType() {
+        List<Category> list = categoryService.getFinalType();
+        return RespDto.success(list);
     }
 }

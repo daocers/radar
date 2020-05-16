@@ -16,4 +16,8 @@ public class GoodsService extends BaseService<Goods> {
     @Autowired
     GoodsDao goodsDao;
 
+    public String genCode(Goods goods){
+        return "SP-123456-US-BL-XL-0";
+    }
+
 }

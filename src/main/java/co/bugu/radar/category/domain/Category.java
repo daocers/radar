@@ -10,6 +10,10 @@ public class Category {
 
     private String name;
 
+    private String value;
+
+    private String memo;
+
     private Integer level;
 
     private Long superiorId;
