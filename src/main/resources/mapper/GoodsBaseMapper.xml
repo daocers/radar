@@ -7,8 +7,20 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
       <if test="categoryId != null">
         category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="color != null">
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="originPlace != null">
+        origin_place = #{originPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=VARCHAR},
       </if>
       <if test="isDel != null">
         is_del = #{isDel,jdbcType=INTEGER},
@@ -35,8 +47,20 @@
       <if test="name != null">
         name,
       </if>
+      <if test="code != null">
+        code,
+      </if>
       <if test="categoryId != null">
         category_id,
+      </if>
+      <if test="color != null">
+        color,
+      </if>
+      <if test="originPlace != null">
+        origin_place,
+      </if>
+      <if test="size != null">
+        size,
       </if>
       <if test="isDel != null">
         is_del,
@@ -55,8 +79,20 @@
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
       <if test="categoryId != null">
         #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="originPlace != null">
+        #{originPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
       </if>
       <if test="isDel != null">
         #{isDel,jdbcType=INTEGER},

@@ -7,6 +7,9 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="memo != null">
+        mome = #{memo},
+      </if>
       <if test="level != null">
         level = #{level,jdbcType=INTEGER},
       </if>
@@ -38,6 +41,9 @@
       <if test="name != null">
         name,
       </if>
+      <if test="memo != null">
+        memo,
+      </if>
       <if test="level != null">
         level,
       </if>
@@ -60,6 +66,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo},
       </if>
       <if test="level != null">
         #{level,jdbcType=INTEGER},

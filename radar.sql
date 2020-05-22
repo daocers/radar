@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` bigint(21) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '类别名称',
+  memo varchar(512) not null default '' comment '描述',
   `level` int(2) NOT NULL DEFAULT 0 COMMENT '级别 从1开始',
   `superior_id` bigint(21) NOT NULL DEFAULT -1 COMMENT '上级目录',
   `is_del` int(1) NOT NULL DEFAULT -1 COMMENT '是否删除',
@@ -25,6 +26,9 @@ CREATE TABLE `goods` (
   `id` bigint(21) NOT NULL AUTO_INCREMENT,
   `name` varchar(300) NOT NULL DEFAULT '',
   `category_id` bigint(21) NOT NULL DEFAULT -1,
+  color varchar(10) not null default '',
+  originPlace varchar(20) not null default '',
+  size varchar(10) not null default '',
   `is_del` int(1) NOT NULL DEFAULT -1,
   `create_user_id` bigint(21) NOT NULL DEFAULT -1,
   `create_time` timestamp NOT NULL DEFAULT current_timestamp(),

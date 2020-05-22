@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author daocers
@@ -106,4 +103,55 @@ public class CategoryService extends BaseService<Category> {
         return children;
     }
 
+    public List<Category> getFinalType() {
+        List<Category> res = new ArrayList<>();
+        Set<Long> set = getNoneLeafNode();
+
+        int pageNum = 1;
+        int pageSize = 100;
+        int count = 0;
+        do {
+            List<Category> list = findByCondition(pageNum, pageSize, null);
+            if (CollectionUtils.isEmpty(list)) {
+                break;
+            }
+            count = list.size();
+            pageNum++;
+            for (Category item : list) {
+                if (!set.contains(item.getId())) {
+                    item.setValue(item.getName());
+                    res.add(item);
+                }
+            }
+        } while (count == pageSize);
+        return res;
+    }
+
+    /**
+     * 获取非叶子节点
+     *
+     * @param
+     * @return
+     * @auther daocers
+     * @date 2020/5/16 13:07
+     */
+    public Set<Long> getNoneLeafNode() {
+        int pageNum = 1;
+        int pageSize = 100;
+        int count = 0;
+        Set<Long> superiorSet = new HashSet<>();
+        do {
+            List<Category> list = findByCondition(pageNum, pageSize, null);
+            if (CollectionUtils.isEmpty(list)) {
+                break;
+            }
+            count = list.size();
+            pageNum++;
+            for (Category item : list) {
+                long superiorId = item.getSuperiorId();
+                superiorSet.add(superiorId);
+            }
+        } while (count == pageSize);
+        return superiorSet;
+    }
 }

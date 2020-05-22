@@ -15,6 +15,7 @@ import java.util.List;
  */
 public abstract class BaseService<T> {
 
+    @Autowired
     BaseDao<T> baseDao;
 
     /**
