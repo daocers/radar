@@ -28,11 +28,11 @@ public class CategoryGoodsXService extends BaseService<CategoryGoodsX> {
     @Autowired
     CategoryService categoryService;
 
-    public List<Category> findByGoodsNameLike(String name) {
+    public List<Category> findByGoodsName(String name) {
         if (StringUtils.isEmpty(name)) {
             return null;
         }
-        name = name + "%";
+//        name = name + "%";
         CategoryGoodsX query = new CategoryGoodsX();
         query.setGoodsName(name);
         List<CategoryGoodsX> list = findByCondition(query);

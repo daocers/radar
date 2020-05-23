@@ -26,7 +26,7 @@
         <where>
             is_del = 1
             <if test="goodsName != null">
-                and goodsName like #{goodsName}
+                and goods_name = #{goodsName}
             </if>
             <if test="categoryId != null">
                 and category_id = #{categoryId}

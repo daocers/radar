@@ -10,6 +10,9 @@ public class Goods {
 
     private String name;
 
+    private String goodsName;
+    private String categoryName;
+
     private String code;
 
     private Long categoryId;

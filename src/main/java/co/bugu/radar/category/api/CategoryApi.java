@@ -3,10 +3,12 @@ package co.bugu.radar.category.api;
 import co.bugu.common.RespDto;
 import co.bugu.common.enums.DelFlagEnum;
 import co.bugu.radar.category.domain.Category;
+import co.bugu.radar.category.dto.CategoryDto;
 import co.bugu.radar.category.dto.TreeNodeDto;
 import co.bugu.radar.category.service.CategoryService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +41,17 @@ public class CategoryApi {
      * @date 2020/5/13 16:11
      */
     @RequestMapping("/fuzzyQuery")
-    public RespDto<List<Category>> fuzzyQuery(String name, Integer pageNum, Integer pageSize) {
+    public RespDto<List<CategoryDto>> fuzzyQuery(String name, Integer pageNum, Integer pageSize) {
         Preconditions.checkArgument(StringUtils.isNoneEmpty(name), "查询参数不能为空");
         PageInfo<Category> pageInfo = categoryService.findByNameLike(name, pageNum, pageSize);
-        return RespDto.success(pageInfo.getList());
+        List<CategoryDto> res = Lists.transform(pageInfo.getList(), item -> {
+            CategoryDto dto = new CategoryDto();
+            dto.setId(item.getId());
+            dto.setName(item.getName());
+            dto.setValue(item.getName());
+            return dto;
+        });
+        return RespDto.success(res);
     }
 
 
@@ -90,6 +99,12 @@ public class CategoryApi {
     @RequestMapping("/getFinalType")
     public RespDto<List<Category>> getFinalType() {
         List<Category> list = categoryService.getFinalType();
+        return RespDto.success(list);
+    }
+
+    @RequestMapping("/findByCondition")
+    public RespDto<List<Category>> findByCondition() {
+        List<Category> list = categoryService.findByCondition(null);
         return RespDto.success(list);
     }
 }
