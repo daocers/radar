@@ -11,7 +11,6 @@ import co.bugu.radar.goods.service.GoodsService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
 import org.apache.commons.collections4.CollectionUtils;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,12 +47,17 @@ public class GoodsApi {
             goodsService.insert(goods);
         }
 
-        CategoryGoodsX x = new CategoryGoodsX();
-        x.setCategoryId(goods.getCategoryId());
-        x.setGoodsName(goods.getGoodsName());
-        x.setIsDel(DelFlagEnum.NO.getCode());
-        xService.insert(x);
-
+        CategoryGoodsX query = new CategoryGoodsX();
+        query.setGoodsName(goods.getGoodsName());
+        query.setCategoryId(goods.getCategoryId());
+        List<CategoryGoodsX> xList = xService.findByCondition(query);
+        if (CollectionUtils.isEmpty(xList)) {
+            CategoryGoodsX x = new CategoryGoodsX();
+            x.setCategoryId(goods.getCategoryId());
+            x.setGoodsName(goods.getGoodsName());
+            x.setIsDel(DelFlagEnum.NO.getCode());
+            xService.insert(x);
+        }
         return RespDto.success(true);
     }
 
@@ -61,16 +65,18 @@ public class GoodsApi {
     @RequestMapping("/findByCondition")
     public RespDto<PageInfo<Goods>> findByCategory(Goods goods, Integer pageNum, Integer pageSize) {
         PageInfo<Goods> pageInfo = goodsService.findByConditionWithPage(pageNum, pageSize, goods);
-        if(CollectionUtils.isNotEmpty(pageInfo.getList())){
+        if (CollectionUtils.isNotEmpty(pageInfo.getList())) {
             CategoryGoodsX query = new CategoryGoodsX();
-            for(Goods item: pageInfo.getList()){
+            for (Goods item : pageInfo.getList()) {
                 query.setCategoryId(item.getCategoryId());
                 List<CategoryGoodsX> list =
                         xService.findByCondition(query);
-                if(CollectionUtils.isNotEmpty(list)){
+                if (CollectionUtils.isNotEmpty(list)) {
                     item.setGoodsName(list.get(0).getGoodsName());
                     Category category = categoryService.selectById(list.get(0).getCategoryId());
-                    item.setCategoryName(category.getName());
+                    if (null != category) {
+                        item.setCategoryName(category.getName());
+                    }
                 }
             }
         }

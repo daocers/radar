@@ -107,4 +107,15 @@ public class CategoryApi {
         List<Category> list = categoryService.findByCondition(null);
         return RespDto.success(list);
     }
+
+//    @RequestMapping("/findByName")
+//    public RespDto<Category> findByName(String name) {
+//        Category query = new Category();
+//        query.setName(name);
+//        List<Category> list = categoryService.findByCondition(1, 1, query);
+//        if (CollectionUtils.isEmpty(list)) {
+//            return RespDto.success(new Category());
+//        }
+//        return RespDto.success(list.get(0));
+//    }
 }

@@ -35,7 +35,7 @@ class RadarApplicationTests {
     @Autowired
     CategoryService categoryService;
 
-    @Test
+//    @Test
     public void test() throws IOException, InvalidFormatException {
         File file = new File("d:/123.xlsx");
         List<List<String>> data = ExcelUtil.getData(file);
