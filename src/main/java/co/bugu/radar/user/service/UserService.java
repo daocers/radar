@@ -22,6 +22,4 @@ import java.util.List;
  */
 @Service
 public class UserService extends BaseService<User> {
-    @Autowired
-    UserDao userDao;
 }
