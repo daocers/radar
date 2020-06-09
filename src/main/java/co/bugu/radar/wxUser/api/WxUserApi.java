@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @Author daocers
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/wxUser/api")
 @RestController
+@ApiIgnore
 public class WxUserApi {
     private Logger logger = LoggerFactory.getLogger(WxUserApi.class);
 

@@ -10,11 +10,13 @@ import co.bugu.radar.goods.domain.Goods;
 import co.bugu.radar.goods.service.GoodsService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
+import io.swagger.annotations.Api;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
@@ -25,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/goods/api")
+@ApiIgnore
 public class GoodsApi {
 
     @Autowired

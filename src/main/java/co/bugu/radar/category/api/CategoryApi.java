@@ -9,12 +9,16 @@ import co.bugu.radar.category.service.CategoryService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/category/api")
+@Api(tags = "分类")
 public class CategoryApi {
 
     @Autowired
@@ -40,6 +45,7 @@ public class CategoryApi {
      * @auther daocers
      * @date 2020/5/13 16:11
      */
+    @ApiIgnore
     @RequestMapping("/fuzzyQuery")
     public RespDto<List<CategoryDto>> fuzzyQuery(String name, Integer pageNum, Integer pageSize) {
         Preconditions.checkArgument(StringUtils.isNoneEmpty(name), "查询参数不能为空");
@@ -63,6 +69,7 @@ public class CategoryApi {
      * @auther daocers
      * @date 2020/5/13 16:53
      */
+    @ApiOperation(value = "获取分类树", httpMethod = "GET")
     @RequestMapping("/getTree")
     public RespDto<List<TreeNodeDto>> getTree() {
         List<TreeNodeDto> list = categoryService.getTree();
@@ -73,6 +80,7 @@ public class CategoryApi {
     }
 
 
+    @ApiOperation(value = "添加标签", httpMethod = "POST")
     @RequestMapping("/save")
     public RespDto<Boolean> save(@RequestBody Category category) {
         Preconditions.checkArgument(null != category);
@@ -96,12 +104,14 @@ public class CategoryApi {
         return RespDto.success(true);
     }
 
+    @ApiIgnore
     @RequestMapping("/getFinalType")
     public RespDto<List<Category>> getFinalType() {
         List<Category> list = categoryService.getFinalType();
         return RespDto.success(list);
     }
 
+    @ApiIgnore
     @RequestMapping("/findByCondition")
     public RespDto<List<Category>> findByCondition() {
         List<Category> list = categoryService.findByCondition(null);
