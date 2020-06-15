@@ -1,11 +1,8 @@
 server:
   port: 8080
   servlet:
-    context-path: /radar
+    context-path: /demo
 
-service:
-  wx:
-    url: https://api.weixin.qq.com/
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/radar?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8&useSSL=false
@@ -28,3 +25,4 @@ spring:
     allow-bean-definition-overriding: true
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.bugu.radar.user.dao.UserDao">
-  <update id="updateById" parameterType="co.bugu.radar.user.domain.User">
+<mapper namespace="cc.wdcloud.demo.user.dao.UserDao">
+  <update id="updateById" parameterType="cc.wdcloud.demo.user.domain.User">
     update user
     <set>
       <if test="nickname != null">
@@ -26,7 +26,7 @@
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="co.bugu.radar.user.domain.User" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cc.wdcloud.demo.user.domain.User" useGeneratedKeys="true">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="nickname != null">
